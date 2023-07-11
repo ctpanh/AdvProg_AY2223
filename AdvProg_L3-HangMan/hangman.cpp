@@ -76,14 +76,7 @@ string chooseWordFromList(const vector<string> &wordList, int index)
     string answer;
     for (unsigned int i = 0; i < wordList[index].length(); i++)
     {
-        if (wordList[index][i] >= 'A' || wordList[index][i] <= 'Z')
-        {
-            answer += wordList[index][i] + 32;
-        }
-        else
-        {
-            answer += wordList[index][i];
-        }
+        answer += tolower(wordList[index][i]);
     }
     return answer;
 }
@@ -142,7 +135,7 @@ void updateSecretWord(string &secretWord, const char ch, const string &word)
 void updateEnteredChars(const char ch, string &chars)
 {
     // TODO: append the character ch is in end of the text chars
-    chars += ch;
+    chars += ch + " ";
 }
 
 /***
@@ -181,16 +174,7 @@ void processData(const char ch, const string &word,
             update incorrectGuess: call updateIncorrectGuess() function
             update incorrectChars: call updateEnteredChars() function
     ***/
-    bool correct = false;
-    for (unsigned int i = 0; i < word.length(); i++)
-    {
-        if (word[i] == ch)
-        {
-            correct = true;
-            break;
-        }
-    }
-    if (correct)
+    if (isCharInWord(ch, word))
     {
         updateSecretWord(secretWord, ch, word);
         updateEnteredChars(ch, correctChars);
